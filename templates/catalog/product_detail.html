@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<h1>{{ product.title }}</h1>
+<p>{{ product.description }}</p>
+{% if product.authors_or_brands %}
+  <p><b>Autor(es)/Marca(s):</b> {{ product.authors_or_brands }}</p>
+{% endif %}
+<p>
+  <b>Categoría:</b>
+  <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+</p>
+<p>
+  <b>Subcategorías:</b>
+  {% for sc in product.subcategories.all %}
+    <a href="{{ sc.get_absolute_url }}">{{ sc.name }}</a>{% if not forloop.last %}, {% endif %}
+  {% empty %}
+    (sin subcategorías)
+  {% endfor %}
+</p>
+<p><b>Precio:</b> {{ product.price }}</p>
+<form method="post" action="{% url 'cart:add' product.id %}">
+  {% csrf_token %}
+  <button type="submit">Añadir al carrito</button>
+</form>
+<form method="post" action="{% url 'orders:buy_now' product.id %}">
+  {% csrf_token %}
+  <button type="submit">Comprar ahora</button>
+</form>
+{% endblock %}
