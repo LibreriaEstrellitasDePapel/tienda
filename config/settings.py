@@ -15,7 +15,7 @@ BASE_DIR=Path(__file__).resolve().parent.parent
 SECRET_KEY=os.getenv("SECRET_KEY","dev-insecure-change-me")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=os.getenv("DEBUG","1")=="1"
-ALLOWED_HOSTS=[h.strip()for h in os.getenv("ALLOWED_HOSTS","127.0.0.1,localhost").split(",")if h.strip()]
+ALLOWED_HOSTS=["tienda-k4wg.onrender.com",h.strip()for h in os.getenv("ALLOWED_HOSTS","127.0.0.1,localhost").split(",")if h.strip()]
 # Application definition
 INSTALLED_APPS=[
     "django.contrib.admin",
@@ -74,4 +74,5 @@ if not DEBUG:
     STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
