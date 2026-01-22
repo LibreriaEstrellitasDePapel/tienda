@@ -1,0 +1,43 @@
+{%extends "base.html"%}{%block title%}Resolver carritos{%endblock%}{%block content%}
+  <h1>🧩 Resolver carritos</h1>
+  <p>Detectamos que tenías productos en un carrito anónimo (sin sesión) y también tienes un carrito asociado a tu cuenta.
+    Elige qué quieres hacer:</p><div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
+    <!-- Carrito anónimo -->
+    <section style="flex:1; min-width:320px; border:1px solid #ccc; padding:16px;">
+      <h2>Carrito anónimo</h2>{%if anon_cart and anon_cart.items.all%}
+        <ul>{%for item in anon_cart.items.all%}
+            <li><a href="{{ item.product.get_absolute_url }}">{{item.product.title}}</a>
+              — {{item.quantity}} x {{item.product.price}}
+            </li>{%endfor%}
+        </ul>
+        <p><b>Subtotal:</b> {{anon_cart.subtotal}}</p>
+        <p><b>Total:</b> {{anon_cart.total}}</p>
+      {%else%}<p>Está vacío.</p>{%endif%}
+    </section>
+    <!-- Carrito del usuario -->
+    <section style="flex:1; min-width:320px; border:1px solid #ccc; padding:16px;">
+      <h2>Carrito de tu cuenta</h2>{%if user_cart and user_cart.items.all%}
+        <ul>
+          {%for item in user_cart.items.all%}
+            <li><a href="{{ item.product.get_absolute_url }}">{{item.product.title}}</a>
+              — {{item.quantity}} x {{item.product.price}}
+            </li>{%endfor%}
+        </ul>
+        <p><b>Subtotal:</b> {{user_cart.subtotal}}</p>
+        <p><b>Total:</b> {{user_cart.total}}</p>
+      {%else%}<p>Está vacío.</p>{%endif%}
+    </section>
+  </div><hr><h2>¿Qué quieres hacer?</h2>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <form method="post" action="{% url 'cart:resolve' %}">{%csrf_token%}
+      <input type="hidden" name="action" value="use_anon">
+      <button type="submit">✅ Usar carrito anónimo</button>
+    </form><form method="post" action="{% url 'cart:resolve' %}">{%csrf_token%}
+      <input type="hidden" name="action" value="merge">
+      <button type="submit">🔀 Mezclar carritos</button>
+    </form><form method="post" action="{% url 'cart:resolve' %}">{%csrf_token%}
+      <input type="hidden" name="action" value="discard_anon">
+      <button type="submit">🗑️ Descartar carrito anónimo</button>
+    </form>
+  </div><p style="margin-top:16px;"><a href="{% url 'cart:detail' %}">Volver al carrito</a></p>
+{%endblock%}

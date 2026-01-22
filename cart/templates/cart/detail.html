@@ -1,0 +1,37 @@
+{%extends "base.html"%}{%block title%}Carrito{%endblock%}{%block content%}
+  <h1>🛒 Tu carrito</h1>
+  {%if cart and cart.items.all%}
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th></th></tr></thead>
+      <tbody>{%for item in cart.items.all%}<tr>
+        <td><a href="{{ item.product.get_absolute_url }}">{{item.product.title}}</a></td>
+        <td>{{ item.product.price }}</td>
+        <td>
+          <form method="post" action="{% url 'cart:set_qty' item.id %}">{%csrf_token%}
+            <input type="number" name="qty" value="{{ item.quantity }}" min="1" style="width:70px;">
+            <button type="submit">Actualizar</button>
+          </form>
+        </td><td><!-- Django templates no multiplican fácil; lo mostramos simple -->
+          {{item.quantity}} x {{item.product.price}}
+        </td><td><a href="{% url 'cart:remove' item.id %}">Eliminar</a></td></tr>{%endfor%}
+      </tbody>
+    </table>
+    <p><b>Subtotal:</b> {{cart.subtotal}}</p>
+    <p><b>Total:</b> {{cart.total}}</p>
+    {%if user.is_authenticated%}
+      <form method="post" action="{% url 'orders:checkout_cart' %}">{%csrf_token%}<button type="submit">Ir a pagar (requiere sesión)</button></form>
+    {%else%}<p>Para pagar el carrito debes <a href="{% url 'login' %}">iniciar sesión</a>.</p>{%endif%}
+  {%else%}<p>Tu carrito está vacío.</p>{%endif%}<hr><h2>Carritos disponibles</h2>
+  <ul>
+    <li><b>Anónimo:</b>
+      {%if anon_cart and anon_cart.items.exists%}
+        {{anon_cart.items.count}} item(s)
+      {%else%}vacío{%endif%}
+    </li>
+    <li><b>Usuario:</b>
+      {%if user_cart and user_cart.items.exists%}
+        {{user_cart.items.count}} item(s)
+      {%else%}vacío{%endif%}
+    </li>
+  </ul>
+{%endblock%}
