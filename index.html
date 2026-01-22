@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="es">
+<head><meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Librería El Saber</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:0;background:#f4f4f4;
+      color:#222;}
+    header{background:#6b4f4f;
+      color:#fff;
+      padding:24px 16px;
+      text-align:center;}
+    header h1{margin:0; font-size:2rem;}
+    header p{margin:8px 0 0; opacity:.9;}
+    main{padding:20px; max-width:1000px; margin:0 auto;}
+    .imagenes{display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:16px;
+      margin:18px 0 26px;}
+    .imagenes figure{margin:0;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 4px 14px rgba(0,0,0,.08);}
+    .imagenes img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;}
+    .imagenes figcaption{
+      padding:12px 14px;
+      font-size:.95rem;
+      color:#444;}
+    .info{background:#fff;
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 4px 14px rgba(0,0,0,.08);
+      line-height:1.6;}
+    .info h2{margin-top:0;}
+    .dato{margin:10px 0;}
+    a{color:#1a73e8;
+      text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    footer{text-align:center;
+      padding:14px 10px;
+      background:#ddd;
+      margin-top:22px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Librería El Saber</h1>
+    <p>Tu espacio para aprender y soñar</p>
+  </header>
+  <main>
+    <h2>Nuestra tienda</h2>
+    <!--IMÁGENES REALES:
+        1) Crea una carpeta llamada "imgs" junto a tu index.html
+        2) Guarda tus fotos ahí (por ejemplo: tienda1.jpg y tienda2.jpg)
+        3) Asegúrate que los nombres coincidan con los del src-->
+    <section class="imagenes">
+      <figure>
+        <img src="imgs/tienda1.jpg" alt="Vista del interior de la librería" />
+        <figcaption>Interior de nuestra librería</figcaption>
+      </figure><figure>
+        <img src="imgs/tienda2.jpg" alt="Estanterías y sección de novedades" />
+        <figcaption>Sección de novedades y recomendaciones</figcaption>
+      </figure>
+    </section>
+    <section class="info">
+      <h2>Contacto y ubicación</h2>
+      <p class="dato"><strong>Dirección:</strong> Avenida de los Libros 123, Santiago, Chile</p>
+      <!-- Teléfono clickeable (Android abre la app teléfono) -->
+      <p class="dato"><strong>Teléfono:</strong>
+        <a href="tel:+56912345678">+56 9 1234 5678</a>
+      </p><!-- Correo clickeable (abre app de correo) -->
+      <p class="dato"><strong>Email:</strong>
+        <a href="mailto:contacto@libreriaelsaber.cl">contacto@libreriaelsaber.cl</a>
+      </p><p class="dato"><strong>Horario:</strong> Lunes a Viernes, 9:00 a 18:00</p>
+      <!--(Opcional) WhatsApp clickeable-->
+      <!--<p class="dato">
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/56912345678" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+      </p>-->
+    </section>
+  </main>
+  <footer><p>© 2026 Librería El Saber</p></footer>
+</body></html>
