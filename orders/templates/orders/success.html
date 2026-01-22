@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Compra exitosa{% endblock %}
+{% block content %}
+  <h1>✅ Compra realizada</h1>
+  <p><b>N° de orden:</b> {{ order.id }}</p>
+  <p><b>Estado:</b> {{ order.status }}</p>
+
+  {% if order.user %}
+    <p><b>Cliente:</b> {{ order.user.username }}</p>
+  {% elif order.email %}
+    <p><b>Email:</b> {{ order.email }}</p>
+  {% else %}
+    <p><b>Cliente:</b> Invitado</p>
+  {% endif %}
+  <h2>Items</h2>
+  <ul>
+    {% for item in order.items.all %}
+      <li>
+        {{ item.product.title }} — {{ item.quantity }} x {{ item.unit_price }}
+      </li>
+    {% empty %}
+      <li>No hay items.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'catalog:home' %}">Volver a la tienda</a></p>
+{% endblock %}
